@@ -12,23 +12,40 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { SignupUser } from "../config/firebasemethod"
-import { Link, Router } from 'react-router-dom';
+import { signUpUser, SignupUser } from "../config/firebasemethod"
+import { Link, Router, useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
-    const [firstName, setFirstName] = React.useState("")
-    const [lastName, setLastName] = React.useState("")
-    let sign = () => {
-        SignupUser({ email, password, firstName, lastName })
-        // console.log("SignupUser");
-        // .then((succ) => {
-        //     console.log(succ)
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+    // const [firstName, setFirstName] = React.useState("")
+    // const [lastName, setLastName] = React.useState("")
+    const [username, setUsername] = React.useState('');
+    const [Popupsuccess, setPopupsuccess] = React.useState(false);
+    const [popupmessage, setpopupmessage] = React.useState('');
+    // let sign = () => {
+    //     SignupUser({ email, password,username})
+    //     // console.log("SignupUser");
+    //     // .then((succ) => {
+    //     //     console.log(succ)
+    //     //   })
+    //     //   .catch((error) => {
+    //     //     console.log(error);
+    //     //   });
+    // }
+    let navigate = useNavigate()
+    let signup = () => {
+        signUpUser({ email, password, username })
+            .then((success) => {
+                setpopupmessage(success)
+                setPopupsuccess(true)
+                console.log(success)
+                navigate('/login')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        setPopupsuccess(false)
     }
     let handleSubmit = (e) => {
         e.preventDefault()
@@ -54,7 +71,7 @@ function Signup() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            {/* <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
                                     name="firstName"
@@ -75,6 +92,17 @@ function Signup() {
                                     name="lastName"
                                     autoComplete="family-name"
                                     onChange={(e) => setLastName(e.target.value)}
+                                /> */}
+                                <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="firstName"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -112,7 +140,7 @@ function Signup() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onClick={sign}
+                            onClick={signup}
                         >
                             Sign Up
                         </Button>

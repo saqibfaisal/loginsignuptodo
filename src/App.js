@@ -5,7 +5,6 @@ import AppRoute from './config/route';
 function App() {
   return (
     <>
-      {/* <h1>hello</h1> */}
       <AppRoute />
     </>
   );

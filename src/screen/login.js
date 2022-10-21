@@ -20,14 +20,18 @@ function Login() {
     const [password, setPassword] = React.useState("")
     let Navigate = useNavigate()
     let Loginuser = () => {
-        LoginUser(email, password,)
+        LoginUser({email, password}).then((success) => {
+            console.log(success)
+            Navigate('/todo', {
+                state: success
+
+            })
+        }).catch((err) => {
+            console.log(err)
+        })
         Navigate("/todo")
     }
-    // let handlsubmit = (e) => {
-    //     e.preventDefault()
-    // }
     return (
-        // <h1>hello</h1>
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
