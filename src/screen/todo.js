@@ -40,16 +40,13 @@ function Todo() {
         data.splice(i, 1)
         setList(data)
     };
-    function updated(index, newList) {
-
-
-        let arr = list
-        // console.log(arr,"hjhj")
-        console.log(arr.splice(1,[...newList]))
-        // console.log(arr)
-        // setList(arr)
-        // setText("")
-    }
+    let updated = (index, value) => {
+        // console.log(index);
+        let editedTask = prompt("", value);
+        list[index] = editedTask;
+        setList([...list]);
+      };
+    
     return (
         < Box sx={{
             marginTop: 8,
