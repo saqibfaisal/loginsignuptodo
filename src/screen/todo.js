@@ -48,22 +48,12 @@ function Todo() {
     setAnchorEl(event.currentTarget);
   };
   function add(e) {
-    // e.preventDefault();
-    // if (!text) {
-    //   alert("Please fill the Todo");
-    // } else {
-      //   let arr = list;
-      //   arr.push(text);
-      //   setList(arr);
-        const reference = ref(database, `todo/${location.state.username}`);
-      const newRef = push(reference);
-      set(newRef, {
-        text,
-        time: `${12 + new Date().getHours()}:${new Date().getMinutes()}`,
-      });
-      // console.log(list)
-    // }
-    // setText("");
+    const reference = ref(database, `todo/${location.state.username}`);
+    const newRef = push(reference);
+    set(newRef, {
+      text,
+      time: `${12 + new Date().getHours()}:${new Date().getMinutes()}`,
+    });
   }
   function deltodo(i) {
     let data = [...list];
@@ -71,19 +61,15 @@ function Todo() {
     setList(data);
   }
   let updated = (index, value) => {
-    // console.log(index);
     let editedTask = prompt("", value);
     list[index] = editedTask;
     setList([...list]);
   };
   const handleGetDatabase = () => {
-    let reference = ref(database, "todo/");
+    let reference = ref(database, `todo/${location.state.username}`);
     onValue(reference, (snapshot) => {
-      console.log(snapshot.val()[location.state.username]);
-      console.log([...Object.values(snapshot.val()[location.state.username])]);
-      // setList([...Object.values(snapshot.val()[location.state.username])]);
-      // console.log(list);
-      // console.log(location);
+      console.log(Object.values(snapshot.val()));
+      setList(Object.values(snapshot.val()));
     });
   };
   let handelsignout = () => {
@@ -111,45 +97,45 @@ function Todo() {
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              {auth && (
-                <div>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="secondary"
-                  >
-                    <Typography
-                      variant="subtitle"
-                      sx={{ marginRight: "10px" }}
-                      color="primary"
-                    >
-                      {location.state.username}-
-                    </Typography>
-                    <AccountCircle color="success" fontSize="large" />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handelsignout}>Logout</MenuItem>
-                  </Menu>
-                </div>
-              )}
-            </Box>
+        {auth && (
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="secondary"
+            >
+              <Typography
+                variant="subtitle"
+                sx={{ marginRight: "10px" }}
+                color="primary"
+              >
+                {location?.state?.username}-
+              </Typography>
+              <AccountCircle color="success" fontSize="large" />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handelsignout}>Logout</MenuItem>
+            </Menu>
+          </div>
+        )}
+      </Box>
       <Typography
         variant="caption"
         fontWeight="bold"
@@ -185,9 +171,14 @@ function Todo() {
             {list.map((e, i) => {
               return (
                 <Box sx={{ mt: 3, display: "flex" }}>
-                  <Typography variant="h5" key={i}>
-                    {e}
-                  </Typography>
+                  <Box>
+
+                    <Typography variant="h5" key={i}>
+                      {e?.text}
+                    </Typography>
+                    <br />
+                    <Typography variant="body1 " >time: {e?.time}</Typography>
+                  </Box>
                   <Button variant="contained" sx={{ ml: 2 }} onClick={deltodo}>
                     Delete
                   </Button>

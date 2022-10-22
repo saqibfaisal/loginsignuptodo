@@ -20,7 +20,7 @@ function Login() {
     const [password, setPassword] = React.useState("")
     let Navigate = useNavigate()
     let Loginuser = () => {
-        LoginUser({email, password}).then((success) => {
+        LoginUser({ email, password }).then((success) => {
             console.log(success)
             Navigate('/todo', {
                 state: success
@@ -76,7 +76,6 @@ function Login() {
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
-                        {/* <Link to="todo"> */}
                         <Button
                             type="submit"
                             fullWidth
@@ -86,7 +85,6 @@ function Login() {
                         >
                             Sign In
                         </Button>
-                        {/* </Link> */}
 
                         <Grid container>
                             <Grid item xs>

@@ -3,9 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -18,21 +15,9 @@ import { Link, Router, useNavigate } from 'react-router-dom';
 function Signup() {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
-    // const [firstName, setFirstName] = React.useState("")
-    // const [lastName, setLastName] = React.useState("")
     const [username, setUsername] = React.useState('');
     const [Popupsuccess, setPopupsuccess] = React.useState(false);
     const [popupmessage, setpopupmessage] = React.useState('');
-    // let sign = () => {
-    //     SignupUser({ email, password,username})
-    //     // console.log("SignupUser");
-    //     // .then((succ) => {
-    //     //     console.log(succ)
-    //     //   })
-    //     //   .catch((error) => {
-    //     //     console.log(error);
-    //     //   });
-    // }
     let navigate = useNavigate()
     let signup = () => {
         signUpUser({ email, password, username })
@@ -71,36 +56,14 @@ function Signup() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            {/* <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    autoFocus
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                />
-                            </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="family-name"
-                                    onChange={(e) => setLastName(e.target.value)}
-                                /> */}
-                                <Grid item xs={12} sm={6}>
-                                <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="userName"
                                     required
                                     fullWidth
-                                    id="firstName"
-                                    label="First Name"
+                                    id="userName"
+                                    label="userName"
                                     autoFocus
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
@@ -128,12 +91,6 @@ function Signup() {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </Grid>
-                            {/* <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
-                            </Grid> */}
                         </Grid>
                         <Button
                             type="submit"
@@ -145,11 +102,6 @@ function Signup() {
                             Sign Up
                         </Button>
                         <Grid container justifyContent="flex-end">
-                            {/* <Grid item> */}
-                                {/* <Link variant="body2">
-                                    Already have an account? Sign in
-                                </Link> */}
-                            {/* </Grid> */}
                             <Grid item>
                                 <Link to="login">Already have an account? Sign in</Link>
                             </Grid>
