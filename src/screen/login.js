@@ -16,20 +16,30 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LoginUser } from '../config/firebasemethod';
 const theme = createTheme();
 function Login() {
-    const [email, setEmail] = React.useState("")
-    const [password, setPassword] = React.useState("")
-    let Navigate = useNavigate()
-    let Loginuser = () => {
-        LoginUser({ email, password }).then((success) => {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    let navigate = useNavigate()
+    let login = () => {
+        LoginUser({
+            email,
+            password
+        }).then((success) => {
             console.log(success)
-            Navigate('/todo', {
+            navigate('/todo', {
+
                 state: success
 
             })
         }).catch((err) => {
             console.log(err)
         })
-        Navigate("/todo")
+    }
+    let locate = () => {
+
+        navigate('/')
+    }
+    let handleSubmite = (e) => {
+        e.preventDefault()
     }
     return (
         <ThemeProvider theme={theme}>
@@ -41,6 +51,7 @@ function Login() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -49,7 +60,7 @@ function Login() {
                     <Typography component="h1" variant="h5">
                         log in
                     </Typography>
-                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                    <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmite}>
                         <TextField
                             margin="normal"
                             required
@@ -81,7 +92,7 @@ function Login() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onClick={Loginuser}
+                            onClick={login}
                         >
                             Sign In
                         </Button>
@@ -93,7 +104,7 @@ function Login() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link to="/">{"Don't have an account? Sign Up"}</Link>
+                                <Button  onClick={locate}>{"Don't have an account? Sign Up"}</Button>
                             </Grid>
                         </Grid>
                     </Box>

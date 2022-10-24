@@ -5,7 +5,6 @@ import { getDatabase, ref, set ,onValue} from "firebase/database";
 
 
 
-
 const auth = getAuth(app);
 const  database  = getDatabase(app)
 let signUpUser = (obj) => {
